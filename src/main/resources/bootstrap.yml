@@ -1,0 +1,13 @@
+---
+
+spring:
+  application:
+    name: vpnbeast-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  cloud:
+    config:
+      uri: http://${CONFIG_SERVICE_HOST:localhost}:${CONFIG_SERVICE_PORT:8888}
+      fail-fast: true
+
+devProfileWithMysqlEnv: DB_URL=jdbc:mysql://localhost:3306/vpnbeast?allowPublicKeyRetrieval=true&useSSL=false;DB_USERNAME=spring;DB_PASSWORD=123asd456;ENCRYPTION_SERVICE_URL=http://localhost:8085;EMAIL_SERVICE_URL=http://localhost:8090

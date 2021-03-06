@@ -1,0 +1,20 @@
+---
+
+deployment:
+  name: vpnbeast-service
+  image: bilalcaliskan/vpnbeast-service:2.6.14
+  replicaCount: 1
+  serverPort: 9090
+  managementPort: 9091
+  managementEndpoint: /actuator/health
+  environment:
+    springActiveProfile: prod
+    configServiceHost: config-service
+    configServicePort: 8888
+    timezone: Europe/Istanbul
+
+ingress:
+  enabled: false
+
+gateway:
+  enabled: true
