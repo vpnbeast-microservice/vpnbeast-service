@@ -2,7 +2,7 @@
 
 deployment:
   name: vpnbeast-service
-  image: bilalcaliskan/vpnbeast-service:2.6.14
+  image: vpnbeast/vpnbeast-service:2.6.14
   replicaCount: 1
   serverPort: 9090
   managementPort: 9091

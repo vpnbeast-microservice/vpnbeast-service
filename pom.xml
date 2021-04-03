@@ -9,7 +9,7 @@
         <org.springframework.cloud.version>Hoxton.SR3</org.springframework.cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <docker.image.prefix>bilalcaliskan</docker.image.prefix>
+        <docker.image.prefix>vpnbeast</docker.image.prefix>
         <io.springfox.version>3.0.0</io.springfox.version>
         <com.spotify.dockerfile-maven-plugin.version>1.4.13</com.spotify.dockerfile-maven-plugin.version>
         <org.modelmapper.version>2.3.9</org.modelmapper.version>
