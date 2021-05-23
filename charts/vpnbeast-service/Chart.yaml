@@ -1,7 +1,7 @@
 ---
 
 apiVersion: v1
-version: 2.6.18
-appVersion: 2.6.18
+version: 2.6.19
+appVersion: 2.6.19
 description: A Helm chart for vpnbeast-service
 name: vpnbeast-service
