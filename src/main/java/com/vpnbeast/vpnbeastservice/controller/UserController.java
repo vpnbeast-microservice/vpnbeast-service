@@ -17,7 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -32,17 +31,8 @@ public class UserController {
     private final UserService userService;
     private final ResponseService responseService;
     private final ModelMapper modelMapper;
-    private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
     private final JwtUserDetailsServiceImpl userDetailsService;
-
-    @PostMapping(value = "/authenticate")
-    public ResponseEntity<JwtResponse> createAuthenticationToken(@Valid @RequestBody UserAuthRequest authenticationRequest) {
-        userDetailsService.authenticate(authenticationManager, authenticationRequest.getUserName(),
-                authenticationRequest.getPassword());
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUserName());
-        return new ResponseEntity<>(jwtTokenService.generateTokenResponse(userDetails), HttpStatus.OK);
-    }
 
     @GetMapping("/refresh")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
