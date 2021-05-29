@@ -21,10 +21,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Slf4j
@@ -46,6 +43,14 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Override
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
+    }
+
+    @Override
+    public ArrayList getRolesFromToken(String token) {
+        Claims jwsMap = Jwts.parser().setSigningKey(getPublicKey(authenticationProperties.getPublicKeyString()))
+                .parseClaimsJws(token)
+                .getBody();
+        return jwsMap.get("roles", ArrayList.class);
     }
 
     @Override

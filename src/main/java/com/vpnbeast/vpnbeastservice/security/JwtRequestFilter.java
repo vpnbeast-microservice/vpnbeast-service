@@ -9,6 +9,7 @@ import com.vpnbeast.vpnbeastservice.persistent.service.impl.JwtUserDetailsServic
 import com.vpnbeast.vpnbeastservice.util.DateUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -48,11 +51,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             final String requestTokenHeader = request.getHeader("Authorization");
             String userName = null;
             String jwtToken = null;
+            ArrayList roles;
             // JWT Token is in the form "Bearer token". Remove Bearer word and get
             // only the Token
             if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
                 jwtToken = requestTokenHeader.substring(7);
                 userName = jwtTokenService.getUsernameFromToken(jwtToken);
+                roles = jwtTokenService.getRolesFromToken(jwtToken);
+                log.info("roles of user {} = {}", userName, roles);
             }
 
             // Once we get the token validate it.

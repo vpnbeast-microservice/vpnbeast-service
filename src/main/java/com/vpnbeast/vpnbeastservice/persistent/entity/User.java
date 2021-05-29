@@ -54,8 +54,7 @@ public class User extends BaseEntity {
     private LocalDateTime verificationCodeVerifiedAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id"),
-    //     inverseJoinColumns = @joinColumn(name = "role_id"))
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
     public void addRole(Role role){
