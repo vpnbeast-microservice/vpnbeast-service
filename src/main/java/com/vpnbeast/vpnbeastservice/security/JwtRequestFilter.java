@@ -1,18 +1,10 @@
 package com.vpnbeast.vpnbeastservice.security;
 
-import com.vpnbeast.vpnbeastservice.exception.ExceptionInfo;
-import com.vpnbeast.vpnbeastservice.exception.TokenExpiredException;
-import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
-import com.vpnbeast.vpnbeastservice.model.enums.OperationType;
-import com.vpnbeast.vpnbeastservice.service.JwtTokenService;
 import com.vpnbeast.vpnbeastservice.persistent.service.impl.JwtUserDetailsServiceImpl;
-import com.vpnbeast.vpnbeastservice.util.DateUtil;
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @Slf4j
 @Component
@@ -34,7 +25,6 @@ import java.util.ArrayList;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtUserDetailsServiceImpl jwtUserDetailsService;
-    private final JwtTokenService jwtTokenService;
     private HandlerExceptionResolver resolver;
 
     @Autowired

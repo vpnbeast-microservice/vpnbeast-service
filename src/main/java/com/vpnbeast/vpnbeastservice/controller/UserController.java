@@ -35,7 +35,7 @@ public class UserController {
     private final JwtUserDetailsServiceImpl userDetailsService;
 
     @GetMapping("/refresh")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<JwtResponse> refresh(HttpServletRequest req) {
         final String userName = req.getRemoteUser();
         final UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/whoami")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<UserResponse> whoami(HttpServletRequest req) {
         final String userName = req.getRemoteUser();
         return new ResponseEntity<>(responseService.buildUserResponse(userService.getByUserName(userName)),
