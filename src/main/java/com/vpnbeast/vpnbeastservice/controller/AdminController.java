@@ -1,7 +1,6 @@
 package com.vpnbeast.vpnbeastservice.controller;
 
 import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
-import com.vpnbeast.vpnbeastservice.model.enums.OperationType;
 import com.vpnbeast.vpnbeastservice.model.request.ServerBaseRequest;
 import com.vpnbeast.vpnbeastservice.model.request.UserBaseRequest;
 import com.vpnbeast.vpnbeastservice.model.response.SuccessResponse;
@@ -16,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -57,8 +55,7 @@ public class AdminController {
         final User entity = userService.get(modelMapper.map(request, User.class));
         entity.setEnabled(true);
         userService.update(entity);
-        return new ResponseEntity<>(responseService.buildSuccessResponse(OperationType.ACTIVATE_USER.getType()),
-                HttpStatus.OK);
+        return new ResponseEntity<>(responseService.buildSuccessResponse(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/users/block")
@@ -66,23 +63,21 @@ public class AdminController {
         final User entity = userService.get(modelMapper.map(request, User.class));
         entity.setEnabled(false);
         userService.update(entity);
-        return new ResponseEntity<>(responseService.buildSuccessResponse(OperationType.BLOCK_USER.getType()),
-                HttpStatus.OK);
+        return new ResponseEntity<>(responseService.buildSuccessResponse(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/delete")
     public ResponseEntity<SuccessResponse> deleteUser(@Valid @RequestBody UserBaseRequest request) {
         final User entity = userService.get(modelMapper.map(request, User.class));
         userService.delete(entity);
-        return new ResponseEntity<>(responseService.buildSuccessResponse(OperationType.DELETE_USER.getType()),
-                HttpStatus.OK);
+        return new ResponseEntity<>(responseService.buildSuccessResponse(), HttpStatus.OK);
     }
 
     @DeleteMapping("/users/delete/{id}")
     public ResponseEntity<Object> deleteUserById(@PathVariable Long id) {
         return userService.deleteById(id) ? new ResponseEntity<>(responseService
-                .buildSuccessResponse(OperationType.DELETE_USER.getType()), HttpStatus.OK) : new ResponseEntity<>(responseService
-                .buildFailureResponse(OperationType.DELETE_USER.getType(), ExceptionMessage.UNKNOWN_ERROR_OCCURED.getMessage()),
+                .buildSuccessResponse(), HttpStatus.OK) : new ResponseEntity<>(responseService
+                .buildFailureResponse(ExceptionMessage.UNKNOWN_ERROR_OCCURED.getMessage()),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -91,8 +86,7 @@ public class AdminController {
         final Server entity = serverService.get(modelMapper.map(request, Server.class));
         entity.setEnabled(true);
         serverService.update(entity);
-        return new ResponseEntity<>(responseService.buildSuccessResponse(OperationType.ACTIVATE_SERVER.getType()),
-                HttpStatus.OK);
+        return new ResponseEntity<>(responseService.buildSuccessResponse(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/servers/block")
@@ -100,22 +94,20 @@ public class AdminController {
         final Server entity = serverService.get(modelMapper.map(request, Server.class));
         entity.setEnabled(false);
         serverService.update(entity);
-        return new ResponseEntity<>(responseService.buildSuccessResponse(OperationType.BLOCK_SERVER.getType()),
-                HttpStatus.OK);
+        return new ResponseEntity<>(responseService.buildSuccessResponse(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/servers/delete")
     public ResponseEntity<SuccessResponse> deleteUser(@Valid @RequestBody ServerBaseRequest request) {
         serverService.delete(modelMapper.map(request, Server.class));
-        return new ResponseEntity<>(responseService.buildSuccessResponse(OperationType.DELETE_SERVER.getType()),
-                HttpStatus.OK);
+        return new ResponseEntity<>(responseService.buildSuccessResponse(), HttpStatus.OK);
     }
 
     @DeleteMapping("/servers/delete/{id}")
     public ResponseEntity<Object> deleteServerById(@PathVariable Long id) {
         return serverService.deleteById(id) ? new ResponseEntity<>(responseService
-                .buildSuccessResponse(OperationType.DELETE_SERVER.getType()), HttpStatus.OK) : new ResponseEntity<>(responseService
-                .buildFailureResponse(OperationType.DELETE_SERVER.getType(), ExceptionMessage.UNKNOWN_ERROR_OCCURED.getMessage()),
+                .buildSuccessResponse(), HttpStatus.OK) : new ResponseEntity<>(responseService
+                .buildFailureResponse(ExceptionMessage.UNKNOWN_ERROR_OCCURED.getMessage()),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

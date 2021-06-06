@@ -15,7 +15,6 @@ public class JwtResponse extends BaseEntityResponse {
     private LocalDateTime lastLogin;
     private Boolean enabled;
     private Boolean emailVerified;
-    private String tag;
     private String accessToken;
     private LocalDateTime accessTokenExpiresAt;
     private String refreshToken;
@@ -29,7 +28,6 @@ public class JwtResponse extends BaseEntityResponse {
         this.lastLogin = user.getLastLogin();
         this.enabled = user.getEnabled();
         this.emailVerified = user.getEmailVerified();
-        this.tag = "getToken";
         this.accessToken = user.getAccessToken();
         this.accessTokenExpiresAt = user.getAccessTokenExpiresAt();
         this.refreshToken = user.getRefreshToken();

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Setter
 public class EmailResponse {
 
-    private String tag;
     private Boolean status;
     private LocalDateTime timestamp;
 

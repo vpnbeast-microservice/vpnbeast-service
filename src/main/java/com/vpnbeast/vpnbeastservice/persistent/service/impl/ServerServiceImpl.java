@@ -1,7 +1,6 @@
 package com.vpnbeast.vpnbeastservice.persistent.service.impl;
 
 import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
-import com.vpnbeast.vpnbeastservice.model.enums.OperationType;
 import com.vpnbeast.vpnbeastservice.exception.ExceptionInfo;
 import com.vpnbeast.vpnbeastservice.exception.ResourceNotFoundException;
 import com.vpnbeast.vpnbeastservice.persistent.entity.Server;
@@ -49,7 +48,6 @@ public class ServerServiceImpl implements ServerService {
         final Optional<Server> serverEntity = repository.findByIpAndPortAndProto(entity.getIp(),
                 entity.getPort(), entity.getProto());
         return serverEntity.orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_SERVER.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_SERVER_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -59,7 +57,6 @@ public class ServerServiceImpl implements ServerService {
     @Override
     public Server getById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_SERVER_BY_ID.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_SERVER_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -91,7 +88,6 @@ public class ServerServiceImpl implements ServerService {
             repository.deleteById(serverId);
             return true;
         }).orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.DELETE_SERVER.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_SERVER_FOUND.getMessage())
                 .httpCode(HttpStatus.BAD_REQUEST.value())

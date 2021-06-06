@@ -4,7 +4,6 @@ import com.vpnbeast.vpnbeastservice.exception.ExceptionInfo;
 import com.vpnbeast.vpnbeastservice.exception.ResourceAlreadyExistsException;
 import com.vpnbeast.vpnbeastservice.exception.ResourceNotFoundException;
 import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
-import com.vpnbeast.vpnbeastservice.model.enums.OperationType;
 import com.vpnbeast.vpnbeastservice.model.enums.RoleType;
 import com.vpnbeast.vpnbeastservice.persistent.entity.Role;
 import com.vpnbeast.vpnbeastservice.persistent.repository.RoleRepository;
@@ -53,7 +52,6 @@ public class RoleServiceImpl implements RoleService {
     public Role get(Role entity) {
         final Optional<Role> role = repository.findByName(entity.getName());
         return role.orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_ROLE.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_ROLE_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -70,7 +68,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_ROLE.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_ROLE_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -95,7 +92,6 @@ public class RoleServiceImpl implements RoleService {
             repository.deleteById(id);
             return true;
         }).orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.DELETE_ROLE.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_ROLE_FOUND.getMessage())
                 .httpCode(HttpStatus.BAD_REQUEST.value())
@@ -107,7 +103,6 @@ public class RoleServiceImpl implements RoleService {
         try {
             if (isExists(entity))
                 throw new ResourceAlreadyExistsException(ExceptionInfo.builder()
-                        .tag(OperationType.INSERT_USER.getType())
                         .status(false)
                         .errorMessage(ExceptionMessage.ROLE_ALREADY_EXISTS.getMessage())
                         .httpCode(HttpStatus.BAD_REQUEST.value())

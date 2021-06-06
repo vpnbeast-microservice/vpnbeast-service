@@ -9,7 +9,6 @@ import lombok.Setter;
 @Builder
 public class FailureResponse {
 
-    private String tag;
     private String errorMessage;
     private Boolean status;
 

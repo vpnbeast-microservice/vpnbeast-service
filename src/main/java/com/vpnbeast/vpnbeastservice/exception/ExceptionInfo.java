@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Builder
 public class ExceptionInfo {
 
-    private final String tag;
     private final String errorMessage;
     private final Boolean status;
     private final Integer httpCode;

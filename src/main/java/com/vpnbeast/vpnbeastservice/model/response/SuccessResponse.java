@@ -9,7 +9,6 @@ import lombok.Setter;
 @Builder
 public class SuccessResponse {
 
-    private String tag;
     private Boolean status;
 
 }

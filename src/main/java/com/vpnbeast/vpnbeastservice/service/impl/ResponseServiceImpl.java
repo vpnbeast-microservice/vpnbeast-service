@@ -13,17 +13,15 @@ import java.util.List;
 public class ResponseServiceImpl implements ResponseService {
 
     @Override
-    public SuccessResponse buildSuccessResponse(String tag) {
+    public SuccessResponse buildSuccessResponse() {
         return SuccessResponse.builder()
-                .tag(tag)
                 .status(true)
                 .build();
     }
 
     @Override
-    public FailureResponse buildFailureResponse(String tag, String errorMessage) {
+    public FailureResponse buildFailureResponse(String errorMessage) {
         return FailureResponse.builder()
-                .tag(tag)
                 .status(false)
                 .errorMessage(errorMessage)
                 .build();

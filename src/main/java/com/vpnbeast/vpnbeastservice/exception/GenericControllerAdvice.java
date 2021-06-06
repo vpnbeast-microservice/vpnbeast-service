@@ -2,7 +2,6 @@ package com.vpnbeast.vpnbeastservice.exception;
 
 import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
 import com.vpnbeast.vpnbeastservice.model.enums.HttpFields;
-import com.vpnbeast.vpnbeastservice.model.enums.OperationType;
 import com.vpnbeast.vpnbeastservice.util.DateUtil;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
@@ -133,7 +132,6 @@ public class GenericControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DisabledException.class)
     private ResponseEntity<ExceptionInfo> handleDisabledException() {
         final ExceptionInfo exceptionInfo = ExceptionInfo.builder()
-                .tag(OperationType.AUTHENTICATE_USER.getType())
                 .errorMessage(ExceptionMessage.USER_DISABLED.getMessage())
                 .httpCode(HttpStatus.BAD_REQUEST.value())
                 .timestamp(DateUtil.getCurrentLocalDateTime())
@@ -145,7 +143,6 @@ public class GenericControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     private ResponseEntity<ExceptionInfo> handleBadCredentialsException() {
         final ExceptionInfo exceptionInfo = ExceptionInfo.builder()
-                .tag(OperationType.AUTHENTICATE_USER.getType())
                 .errorMessage(ExceptionMessage.USER_PASS_INCORRECT.getMessage())
                 .httpCode(HttpStatus.BAD_REQUEST.value())
                 .timestamp(DateUtil.getCurrentLocalDateTime())
@@ -157,7 +154,6 @@ public class GenericControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UsernameNotFoundException.class)
     private ResponseEntity<ExceptionInfo> handleUsernameNotFoundException() {
         final ExceptionInfo exceptionInfo = ExceptionInfo.builder()
-                .tag(OperationType.AUTHENTICATE_USER.getType())
                 .errorMessage(ExceptionMessage.NO_USER_FOUND.getMessage())
                 .httpCode(HttpStatus.BAD_REQUEST.value())
                 .timestamp(DateUtil.getCurrentLocalDateTime())

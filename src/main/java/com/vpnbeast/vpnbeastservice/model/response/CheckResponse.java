@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class CheckResponse {
 
-    private String tag;
     private Boolean status;
 
 }

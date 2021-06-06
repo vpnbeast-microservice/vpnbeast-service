@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ResponseService {
 
-    SuccessResponse buildSuccessResponse(String tag);
-    FailureResponse buildFailureResponse(String tag, String errorMessage);
+    SuccessResponse buildSuccessResponse();
+    FailureResponse buildFailureResponse(String errorMessage);
     UserResponse buildUserResponse(User user);
     List<UserResponse> buildUserResponseList(List<User> userList);
     ServerResponse buildServerResponse(Server server);

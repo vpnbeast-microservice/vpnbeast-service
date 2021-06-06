@@ -3,7 +3,6 @@ package com.vpnbeast.vpnbeastservice.persistent.service.impl;
 import com.vpnbeast.vpnbeastservice.configuration.AuthenticationProperties;
 import com.vpnbeast.vpnbeastservice.model.enums.EmailType;
 import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
-import com.vpnbeast.vpnbeastservice.model.enums.OperationType;
 import com.vpnbeast.vpnbeastservice.exception.*;
 import com.vpnbeast.vpnbeastservice.model.enums.RoleType;
 import com.vpnbeast.vpnbeastservice.persistent.entity.User;
@@ -66,7 +65,6 @@ public class UserServiceImpl implements UserService {
     public User get(User request) {
         final Optional<User> user = repository.findByUserName(request.getUserName());
         return user.orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_USER.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_USER_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -78,7 +76,6 @@ public class UserServiceImpl implements UserService {
         try {
             if (isExists(entity))
                 throw new ResourceAlreadyExistsException(ExceptionInfo.builder()
-                        .tag(OperationType.INSERT_USER.getType())
                         .status(false)
                         .errorMessage(String.format(ExceptionMessage.ALREADY_USER.getMessage(), entity.getUserName()))
                         .httpCode(HttpStatus.BAD_REQUEST.value())
@@ -91,7 +88,6 @@ public class UserServiceImpl implements UserService {
         try {
             if (isEmailTaken(entity))
                 throw new ResourceAlreadyExistsException(ExceptionInfo.builder()
-                        .tag(OperationType.INSERT_USER.getType())
                         .status(false)
                         .errorMessage(String.format(ExceptionMessage.EMAIL_ALREADY_TAKEN.getMessage(), entity.getEmail()))
                         .httpCode(HttpStatus.BAD_REQUEST.value())
@@ -130,7 +126,6 @@ public class UserServiceImpl implements UserService {
             repository.deleteById(id);
             return true;
         }).orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.DELETE_USER.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_USER_FOUND.getMessage())
                 .httpCode(HttpStatus.BAD_REQUEST.value())
@@ -152,7 +147,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_USER.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_USER_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -163,7 +157,6 @@ public class UserServiceImpl implements UserService {
     public User getByUserName(String userName) {
         final Optional<User> userEntity = repository.findByUserName(userName);
         return userEntity.orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_USER.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_USER_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -174,7 +167,6 @@ public class UserServiceImpl implements UserService {
     public User getByEmail(String email) {
         final Optional<User> userEntity = repository.findByEmail(email);
         return userEntity.orElseThrow(() -> new ResourceNotFoundException(ExceptionInfo.builder()
-                .tag(OperationType.GET_USER.getType())
                 .status(false)
                 .errorMessage(ExceptionMessage.NO_USER_FOUND.getMessage())
                 .httpCode(HttpStatus.NOT_FOUND.value())
@@ -193,7 +185,6 @@ public class UserServiceImpl implements UserService {
                 return true;
             } else {
                 throw new VerificationCodeExpiredException(ExceptionInfo.builder()
-                        .tag(OperationType.VERIFY_USER.getType())
                         .status(false)
                         .errorMessage(ExceptionMessage.VERIFICATION_CODE_EXPIRED.getMessage())
                         .httpCode(HttpStatus.BAD_REQUEST.value())
@@ -202,7 +193,6 @@ public class UserServiceImpl implements UserService {
             }
         } else {
             throw new VerificationCodeNotValidException(ExceptionInfo.builder()
-                    .tag(OperationType.VERIFY_USER.getType())
                     .status(false)
                     .errorMessage(ExceptionMessage.VERIFICATION_CODE_NOT_VALID.getMessage())
                     .httpCode(HttpStatus.BAD_REQUEST.value())

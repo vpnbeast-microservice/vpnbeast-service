@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class EncryptResponse {
 
-    private String tag;
     private String output;
 
 }
