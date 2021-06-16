@@ -6,7 +6,7 @@
     <version>2.6.22</version>
 
     <properties>
-        <org.springframework.cloud.version>Hoxton.SR3</org.springframework.cloud.version>
+        <org.springframework.cloud.version>2020.0.3</org.springframework.cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
         <docker.image.prefix>vpnbeast</docker.image.prefix>
@@ -20,13 +20,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.8.RELEASE</version>
+        <version>2.5.0</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
