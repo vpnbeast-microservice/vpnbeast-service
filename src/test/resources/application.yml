@@ -4,9 +4,6 @@ spring:
   config:
     activate:
       on-profile: unit-test
-  cloud:
-    config:
-      enabled: false
   jpa:
     hibernate:
       ddl-auto: create-drop
