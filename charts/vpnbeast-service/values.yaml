@@ -4,17 +4,69 @@ deployment:
   name: vpnbeast-service
   image: vpnbeast/vpnbeast-service:2.6.26
   replicaCount: 1
-  serverPort: 9090
-  managementPort: 9091
-  managementEndpoint: /actuator/health
-  environment:
-    springActiveProfile: prod
-    configServiceHost: config-service
-    configServicePort: 8888
-    timezone: Europe/Istanbul
+  ports:
+    - containerPort: 9090
+      name: server-port
+    - containerPort: 9091
+      name: management-port
+  variables:
+    - name: TZ
+      value: Europe/Istanbul
+    - name: SPRING_PROFILES_ACTIVE
+      value: prod
+    - name: CONFIG_SERVICE_HOST
+      value: config-service
+    - name: CONFIG_SERVICE_PORT
+      value: 8888
+  probes:
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /actuator/health
+        port: 9091
+        scheme: HTTP
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /actuator/health
+        port: 9091
+        scheme: HTTP
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+
+service:
+  ports:
+    - name: server-port
+      port: 9090
+      targetPort: 9090
+    - name: management-port
+      port: 9091
+      targetPort: 9091
 
 ingress:
   enabled: false
+  rules:
+    - http:
+        paths:
+          - path: /vpnbeast-service(/|$)(.*)
+            backend:
+              serviceName: vpnbeast-service
+              servicePort: 9090
 
 gateway:
-  enabled: true
+  enabled: false
+  routes:
+    - route:
+      - destination:
+          port:
+            number: 9090
+          host: vpnbeast-service
+      match:
+      - uri:
+          prefix: /
