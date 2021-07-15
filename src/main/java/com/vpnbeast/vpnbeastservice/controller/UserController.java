@@ -2,21 +2,16 @@ package com.vpnbeast.vpnbeastservice.controller;
 
 import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
 import com.vpnbeast.vpnbeastservice.model.request.*;
-import com.vpnbeast.vpnbeastservice.model.response.JwtResponse;
 import com.vpnbeast.vpnbeastservice.model.response.SuccessResponse;
-import com.vpnbeast.vpnbeastservice.model.response.UserResponse;
 import com.vpnbeast.vpnbeastservice.persistent.entity.User;
 import com.vpnbeast.vpnbeastservice.persistent.service.UserService;
 import com.vpnbeast.vpnbeastservice.service.ResponseService;
-import com.vpnbeast.vpnbeastservice.persistent.service.impl.JwtUserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Slf4j

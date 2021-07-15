@@ -11,9 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -120,39 +117,6 @@ public class GenericControllerAdvice extends ResponseEntityExceptionHandler {
         body.put(HttpFields.MESSAGE.getField(), ex.getLocalizedMessage());
         body.put(HttpFields.TIMESTAMP.getField(), DateUtil.getCurrentLocalDateTime());
         return new ResponseEntity<>(body, headers, status);
-    }
-
-    @ExceptionHandler(DisabledException.class)
-    private ResponseEntity<ExceptionInfo> handleDisabledException() {
-        final ExceptionInfo exceptionInfo = ExceptionInfo.builder()
-                .errorMessage(ExceptionMessage.USER_DISABLED.getMessage())
-                .httpCode(HttpStatus.BAD_REQUEST.value())
-                .timestamp(DateUtil.getCurrentLocalDateTime())
-                .build();
-        log.warn(exceptionInfo.getErrorMessage());
-        return new ResponseEntity<>(exceptionInfo, HttpStatus.valueOf(exceptionInfo.getHttpCode()));
-    }
-
-    @ExceptionHandler(BadCredentialsException.class)
-    private ResponseEntity<ExceptionInfo> handleBadCredentialsException() {
-        final ExceptionInfo exceptionInfo = ExceptionInfo.builder()
-                .errorMessage(ExceptionMessage.USER_PASS_INCORRECT.getMessage())
-                .httpCode(HttpStatus.BAD_REQUEST.value())
-                .timestamp(DateUtil.getCurrentLocalDateTime())
-                .build();
-        log.warn(exceptionInfo.getErrorMessage());
-        return new ResponseEntity<>(exceptionInfo, HttpStatus.valueOf(exceptionInfo.getHttpCode()));
-    }
-
-    @ExceptionHandler(UsernameNotFoundException.class)
-    private ResponseEntity<ExceptionInfo> handleUsernameNotFoundException() {
-        final ExceptionInfo exceptionInfo = ExceptionInfo.builder()
-                .errorMessage(ExceptionMessage.NO_USER_FOUND.getMessage())
-                .httpCode(HttpStatus.BAD_REQUEST.value())
-                .timestamp(DateUtil.getCurrentLocalDateTime())
-                .build();
-        log.warn(exceptionInfo.getErrorMessage());
-        return new ResponseEntity<>(exceptionInfo, HttpStatus.valueOf(exceptionInfo.getHttpCode()));
     }
 
     @ExceptionHandler(Exception.class)
