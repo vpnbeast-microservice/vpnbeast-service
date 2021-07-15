@@ -28,13 +28,6 @@ public class ServerServiceImpl implements ServerService {
     private final ServerRepository repository;
 
     @Override
-    public List<Server> getAll() {
-        List<Server> servers = new ArrayList<>();
-        repository.findAll().forEach(servers::add);
-        return servers;
-    }
-
-    @Override
     public List<Server> getAll(Integer pageNo, Integer pageSize, String sortBy) {
         if (!ALLOWED_SORT_BY_PARAMS.contains(sortBy))
             sortBy = "id";
