@@ -40,11 +40,6 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationProperties authenticationProperties;
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public void setPasswordEncoder(@Lazy PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();

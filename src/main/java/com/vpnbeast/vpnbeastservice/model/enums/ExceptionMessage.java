@@ -9,7 +9,6 @@ public enum ExceptionMessage {
 
     USER_PASS_INCORRECT("Password is incorrect!"),
     USER_DISABLED("User is currently blocked!"),
-    JWT_EXPIRED("Given Jwt token already expired!"),
     NO_USER_FOUND("User not found!"),
     USER_VERIFICATION_FAILED("User verification failed, check the verification code!"),
     VERIFICATION_CODE_EXPIRED("Verification code already expired, please resend verification code!"),

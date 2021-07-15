@@ -5,7 +5,6 @@ import com.vpnbeast.vpnbeastservice.persistent.entity.Server;
 import com.vpnbeast.vpnbeastservice.persistent.entity.User;
 import com.vpnbeast.vpnbeastservice.service.ResponseService;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,13 +46,6 @@ public class ResponseServiceImpl implements ResponseService {
     public ServerResponse buildServerResponse(Server server) {
         return ServerResponse.serverResponseBuilder()
                 .server(server)
-                .build();
-    }
-
-    @Override
-    public JwtResponse buildJwtResponse(User user) {
-        return JwtResponse.jwtResponseBuilder()
-                .user(user)
                 .build();
     }
 

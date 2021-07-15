@@ -1,4 +1,4 @@
-package com.vpnbeast.vpnbeastservice.security;
+package com.vpnbeast.vpnbeastservice.configuration;
 
 import com.vpnbeast.vpnbeastservice.service.EncryptionService;
 import lombok.RequiredArgsConstructor;

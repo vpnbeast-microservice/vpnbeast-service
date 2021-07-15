@@ -11,12 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "vpnbeast-service.security")
 public class AuthenticationProperties {
 
-    private String secret;
-    private String issuer;
-    private String publicKeyString;
-    private String privateKeyString;
-    private Long accessTokenValidInMinutes;
-    private Long refreshTokenValidInMinutes;
     private Long verificationCodeValidInMinutes;
 
 }

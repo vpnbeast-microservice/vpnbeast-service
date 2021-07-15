@@ -13,7 +13,6 @@ public interface ResponseService {
     UserResponse buildUserResponse(User user);
     List<UserResponse> buildUserResponseList(List<User> userList);
     ServerResponse buildServerResponse(Server server);
-    JwtResponse buildJwtResponse(User user);
     List<ServerResponse> buildServerResponseList(List<Server> serverList);
 
 }

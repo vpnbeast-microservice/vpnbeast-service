@@ -14,7 +14,6 @@
         <com.spotify.dockerfile-maven-plugin.version>1.4.13</com.spotify.dockerfile-maven-plugin.version>
         <org.modelmapper.version>2.3.9</org.modelmapper.version>
         <org.projectlombok.lombok.version>1.18.16</org.projectlombok.lombok.version>
-        <io.jsonwebtoken.jjwt.version>0.9.1</io.jsonwebtoken.jjwt.version>
     </properties>
 
     <parent>
@@ -91,15 +90,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${org.projectlombok.lombok.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${io.jsonwebtoken.jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>

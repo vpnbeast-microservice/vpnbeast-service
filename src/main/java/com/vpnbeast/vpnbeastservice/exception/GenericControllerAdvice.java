@@ -64,13 +64,6 @@ public class GenericControllerAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionInfo, HttpStatus.valueOf(exceptionInfo.getHttpCode()));
     }
 
-    @ExceptionHandler(TokenExpiredException.class)
-    public ResponseEntity<ExceptionInfo> handleTokenExpiredException(TokenExpiredException ex) {
-        log.warn(ex.getExceptionInfo().getErrorMessage());
-        final ExceptionInfo exceptionInfo = ex.getExceptionInfo();
-        return new ResponseEntity<>(exceptionInfo, HttpStatus.valueOf(exceptionInfo.getHttpCode()));
-    }
-
     @ExceptionHandler(FeignException.class)
     private ResponseEntity<ExceptionInfo> handleFeignException(FeignException exception) {
         log.error("", exception);

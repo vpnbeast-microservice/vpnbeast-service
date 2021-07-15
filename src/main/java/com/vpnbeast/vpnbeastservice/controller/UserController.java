@@ -7,7 +7,6 @@ import com.vpnbeast.vpnbeastservice.model.response.SuccessResponse;
 import com.vpnbeast.vpnbeastservice.model.response.UserResponse;
 import com.vpnbeast.vpnbeastservice.persistent.entity.User;
 import com.vpnbeast.vpnbeastservice.persistent.service.UserService;
-import com.vpnbeast.vpnbeastservice.service.JwtTokenService;
 import com.vpnbeast.vpnbeastservice.service.ResponseService;
 import com.vpnbeast.vpnbeastservice.persistent.service.impl.JwtUserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -29,24 +28,6 @@ public class UserController {
     private final UserService userService;
     private final ResponseService responseService;
     private final ModelMapper modelMapper;
-    private final JwtTokenService jwtTokenService;
-    private final JwtUserDetailsServiceImpl userDetailsService;
-
-    @GetMapping("/refresh")
-    // @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<JwtResponse> refresh(HttpServletRequest req) {
-        final String userName = req.getRemoteUser();
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-        return new ResponseEntity<>(jwtTokenService.generateTokenResponse(userDetails), HttpStatus.OK);
-    }
-
-    @GetMapping("/whoami")
-    // @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<UserResponse> whoami(HttpServletRequest req) {
-        final String userName = req.getRemoteUser();
-        return new ResponseEntity<>(responseService.buildUserResponse(userService.getByUserName(userName)),
-                HttpStatus.OK);
-    }
 
     @PostMapping(value = "/register")
     public ResponseEntity<SuccessResponse> registerUser(@Valid @RequestBody UserRegisterRequest request) {
