@@ -33,13 +33,6 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository repository;
 
     @Override
-    public List<Role> getAll() {
-        List<Role> roles = new ArrayList<>();
-        repository.findAll().forEach(roles::add);
-        return roles;
-    }
-
-    @Override
     public List<Role> getAll(Integer pageNo, Integer pageSize, String sortBy) {
         if (!ALLOWED_SORT_BY_PARAMS.contains(sortBy))
             sortBy = "id";

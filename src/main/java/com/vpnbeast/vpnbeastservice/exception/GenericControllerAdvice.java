@@ -1,6 +1,5 @@
 package com.vpnbeast.vpnbeastservice.exception;
 
-import com.vpnbeast.vpnbeastservice.model.enums.ExceptionMessage;
 import com.vpnbeast.vpnbeastservice.model.enums.HttpFields;
 import com.vpnbeast.vpnbeastservice.util.DateUtil;
 import feign.FeignException;

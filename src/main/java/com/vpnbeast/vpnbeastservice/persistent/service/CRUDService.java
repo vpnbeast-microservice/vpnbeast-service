@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface CRUDService<T> {
 
-    List<T> getAll();
     List<T> getAll(Integer pageNo, Integer pageSize, String sortBy);
     void update(T entity);
     T get(T entity);

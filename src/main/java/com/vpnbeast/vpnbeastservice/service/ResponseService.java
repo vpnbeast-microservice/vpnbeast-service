@@ -3,7 +3,6 @@ package com.vpnbeast.vpnbeastservice.service;
 import com.vpnbeast.vpnbeastservice.model.response.*;
 import com.vpnbeast.vpnbeastservice.persistent.entity.Server;
 import com.vpnbeast.vpnbeastservice.persistent.entity.User;
-
 import java.util.List;
 
 public interface ResponseService {
