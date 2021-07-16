@@ -16,7 +16,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,12 +33,18 @@ public class AdminController {
     private final ResponseService responseService;
 
     @GetMapping(value = "/users/all")
-    public ResponseEntity<List<UserResponse>> getAllUsers(@RequestParam(defaultValue = "0") Integer pageNo,
-                                                  @RequestParam(defaultValue = "10") Integer pageSize,
-                                                  @RequestParam(defaultValue = "id") String sortBy) {
-        List<User> userList = userService.getAll(pageNo, pageSize, sortBy);
-        return new ResponseEntity<>(responseService.buildUserResponseList(userList), new HttpHeaders(),
-                HttpStatus.OK);
+    public ResponseEntity<List<UserResponse>> getAllUsers(HttpServletRequest req,
+                                                          @RequestParam(defaultValue = "0") Integer pageNo,
+                                                          @RequestParam(defaultValue = "10") Integer pageSize,
+                                                          @RequestParam(defaultValue = "id") String sortBy) {
+        if (req.getHeader("roles").contains("ROLE_ADMIN")) {
+            List<User> userList = userService.getAll(pageNo, pageSize, sortBy);
+            return new ResponseEntity<>(responseService.buildUserResponseList(userList), new HttpHeaders(),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(responseService.buildUserResponseList(new ArrayList<>()), new HttpHeaders(),
+                    HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @PostMapping(value = "/users/")

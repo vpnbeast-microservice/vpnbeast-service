@@ -39,13 +39,6 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public List<User> getAll() {
-        List<User> users = new ArrayList<>();
-        repository.findAll().forEach(users::add);
-        return users;
-    }
-
-    @Override
     public List<User> getAll(Integer pageNo, Integer pageSize, String sortBy) {
         if (!ALLOWED_SORT_BY_PARAMS.contains(sortBy))
             sortBy = "id";
