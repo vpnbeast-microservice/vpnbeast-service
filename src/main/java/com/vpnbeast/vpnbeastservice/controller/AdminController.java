@@ -11,6 +11,7 @@ import com.vpnbeast.vpnbeastservice.persistent.service.ServerService;
 import com.vpnbeast.vpnbeastservice.persistent.service.UserService;
 import com.vpnbeast.vpnbeastservice.service.ResponseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
-// @PreAuthorize("hasRole('ADMIN')")
+@Slf4j
 public class AdminController {
 
     private final UserService userService;
@@ -33,18 +33,12 @@ public class AdminController {
     private final ResponseService responseService;
 
     @GetMapping(value = "/users/all")
-    public ResponseEntity<List<UserResponse>> getAllUsers(HttpServletRequest req,
-                                                          @RequestParam(defaultValue = "0") Integer pageNo,
+    public ResponseEntity<List<UserResponse>> getAllUsers(@RequestParam(defaultValue = "0") Integer pageNo,
                                                           @RequestParam(defaultValue = "10") Integer pageSize,
                                                           @RequestParam(defaultValue = "id") String sortBy) {
-        if (req.getHeader("roles").contains("ROLE_ADMIN")) {
-            List<User> userList = userService.getAll(pageNo, pageSize, sortBy);
-            return new ResponseEntity<>(responseService.buildUserResponseList(userList), new HttpHeaders(),
-                    HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(responseService.buildUserResponseList(new ArrayList<>()), new HttpHeaders(),
-                    HttpStatus.UNAUTHORIZED);
-        }
+        List<User> userList = userService.getAll(pageNo, pageSize, sortBy);
+        return new ResponseEntity<>(responseService.buildUserResponseList(userList), new HttpHeaders(),
+                HttpStatus.OK);
     }
 
     @PostMapping(value = "/users/")
